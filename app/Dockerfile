@@ -1,19 +1,16 @@
 FROM python:3.10-alpine
 
-RUN pip install --upgrade pip
-
-COPY . .
-
-#COPY ./requirements.txt .
-RUN pip install -r requirements.txt
-
-WORKDIR /usr/src/freelance_django
+WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED 1
 
-COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' /usr/src/freelance_django/entrypoint.sh
-RUN chmod +x /usr/src/freelance_django/entrypoint.sh
+RUN pip install --upgrade pip
+COPY ./requirements.txt /usr/src/app/requirements.txt
+RUN pip install -r /usr/src/app/requirements.txt
 
-ENTRYPOINT ["/usr/src/freelance_django/entrypoint.sh"]
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+
+COPY . /usr/src/app/
+
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
