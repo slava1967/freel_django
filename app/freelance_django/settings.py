@@ -83,6 +83,14 @@ DATABASES = {
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
         "HOST": os.environ.get("SQL_HOST"),
         "PORT": os.environ.get("SQL_PORT"),
+        # "ENGINE": "django.db.backends.postgresql",
+        # "HOST": "127.0.0.1",
+        # "PORT": 5432,
+        # "NAME": "postgres",
+        # "USER": "postgres",
+        # "PASSWORD": "Trans678",
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": "mydatabase",
     }
 }
 
