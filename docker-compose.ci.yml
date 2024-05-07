@@ -2,7 +2,7 @@ services:
   web:
     build:
       context: application
-      dockerfile: Dockerfile.prod
+      dockerfile: app/Dockerfile.prod
       cache_from:
         - "${WEB_IMAGE}"
     image: "${WEB_IMAGE}"
