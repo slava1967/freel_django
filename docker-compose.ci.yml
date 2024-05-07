@@ -1,24 +1,17 @@
 services:
   web:
     build:
-      context: application
-      dockerfile: app/Dockerfile.prod
+      context: ./app
+      dockerfile: Dockerfile.prod
       cache_from:
         - "${WEB_IMAGE}"
     image: "${WEB_IMAGE}"
-    command: gunicorn ./application/freelance_django.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static_volume:/usr/src/application/staticfiles
+      - static_volume:/app/static
     expose:
       - 8000
     env_file: .env
-
-  db:
-    image: postgres:15-alpine
-    env_file:
-      - .env
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
 
   nginx:
     build:
@@ -27,12 +20,11 @@ services:
         - "${NGINX_IMAGE}"
     image: "${NGINX_IMAGE}"
     volumes:
-      - static_volume:/usr/src/application/staticfiles
+      - static_volume:/app/static
     ports:
       - 80:80
     depends_on:
       - web
 
 volumes:
-  postgres_data:
   static_volume:
