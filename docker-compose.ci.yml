@@ -22,7 +22,7 @@ services:
     volumes:
       - static_volume:/app/static
     ports:
-      - 80:80
+      - 80:81
     depends_on:
       - web
 
